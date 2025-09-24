@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureChain LatAm - Blockchain Fraud Prevention</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(124, 58, 237, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #10b981;
+        }
+        
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .section {
+            min-height: 100vh;
+            padding: 100px 0;
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        /* HOME SECTION */
+        .home {
+            background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #e0e7ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero .tagline {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        }
+        
+        /* PROBLEM SECTION */
+        .problem {
+            background: white;
+        }
+        
+        .problem-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #dc2626;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        /* SOLUTION SECTION */
+        .solution {
+            background: linear-gradient(135deg, #7c3aed, #6366f1);
+            color: white;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        /* PRODUCT SECTION */
+        .product {
+            background: #f9fafb;
+        }
+        
+        .demo-container {
+            background: #1f2937;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            font-family: monospace;
+            color: #10b981;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-header {
+            color: #7c3aed;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .demo-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .demo-alert {
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid #dc2626;
+            border-radius: 8px;
+            padding: 20px;
+            color: #fecaca;
+        }
+        
+        /* TECHNOLOGY SECTION */
+        .technology {
+            background: white;
+            text-align: center;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .tech-card {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .lisk-logo {
+            width: 200px;
+            height: 80px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 30px;
+        }
+        
+        /* TEAM SECTION */
+        .team {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            color: white;
+        }
+        
+        .founder-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .founder-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #7c3aed, #10b981);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 30px;
+        }
+        
+        .recruiting-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .role-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* CONTACT SECTION */
+        .contact {
+            background: #111827;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.8;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(124, 58, 237, 0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: left 0.3s;
+                gap: 3rem;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 { font-size: 2.5rem; }
+            .hero .subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <span>SecureChain LatAm</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Inicio</a></li>
+                <li><a href="#problem" class="nav-link">Problema</a></li>
+                <li><a href="#solution" class="nav-link">Solución</a></li>
+                <li><a href="#product" class="nav-link">Producto</a></li>
+                <li><a href="#technology" class="nav-link">Tecnología</a></li>
+                <li><a href="#team" class="nav-link">Equipo</a></li>
+                <li><a href="#contact" class="nav-link">Contacto</a></li>
+            </ul>
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+        </nav>
+    </header>
+
+    <!-- HOME SECTION -->
+    <section id="home" class="section home active">
+        <div class="container">
+            <div class="hero">
+                <h1>🛡️ SecureChain LatAm</h1>
+                <div class="subtitle">Infraestructura Blockchain Anti-Fraude</div>
+                <div class="tagline">
+                    Prevenimos fraudes en pagos digitales usando blockchain descentralizada, protegiendo a millones de usuarios en América Latina.
+                </div>
+                <a href="#contact" class="cta-button pulse nav-link">
+                    🚀 Únete a la Revolución
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section id="problem" class="section problem">
+        <div class="container">
+            <h2 class="section-title">El Problema es Real</h2>
+            <p class="section-subtitle">
+                América Latina pierde miles de millones anualmente por fraudes en pagos digitales, creando barreras masivas para la inclusión financiera.
+            </p>
+            
+            <div class="problem-stats">
+                <div class="stat-card">
+                    <div class="stat-number">$247M</div>
+                    <div class="stat-label">Perdidos en estafas APP<br>solo en Brasil (2024)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20%</div>
+                    <div class="stat-label">Pérdida de Ingresos<br>por Fraude en LatAm</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">97%</div>
+                    <div class="stat-label">Más Fraude de Tarjetas<br>vs Norteamérica</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">113%</div>
+                    <div class="stat-label">Aumento Malware<br>en 12 Meses</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <div style="background: #fee2e2; color: #dc2626; padding: 20px; border-radius: 12px; display: inline-block;">
+                    🚨 <strong>Los sistemas actuales son REACTIVOS, no PROACTIVOS</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION SECTION -->
+    <section id="solution" class="section solution">
+        <div class="container">
+            <h2 class="section-title">Nuestra Solución</h2>
+            <p class="section-subtitle">
+                SecureChain combina blockchain, IA y inteligencia comunitaria para prevenir fraudes antes de que ocurran.
+            </p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Reputación Descentralizada</h3>
+                    <p>Puntuación on-chain imposible de manipular por actores maliciosos o puntos únicos de falla.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Detección Proactiva con IA</h3>
+                    <p>Algoritmos de machine learning que entienden patrones de fraude específicos de América Latina.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Identidad que Preserva Privacidad</h3>
+                    <p>Verificación zero-knowledge sin comprometer la privacidad del usuario o soberanía de datos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Inteligencia Comunitaria</h3>
+                    <p>Red distribuida de reportes de actividad sospechosa con incentivos tokenizados.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <div style="background: rgba(16, 185, 129, 0.2); padding: 30px; border-radius: 16px; border: 2px solid #10b981;">
+                    <h3 style="color: #10b981; margin-bottom: 10px;">RESULTADO</h3>
+                    <div style="font-size: 1.5rem; font-weight: bold;">85% reducción de fraude • $0.02 por transacción</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT SECTION -->
+    <section id="product" class="section product">
+        <div class="container">
+            <h2 class="section-title">Producto en Acción</h2>
+            <p class="section-subtitle">
+                Dashboard de prevención de fraudes en tiempo real que se integra con cualquier sistema de pagos.
+            </p>
+            
+            <div class="demo-container">
+                <div class="demo-header">🛡️ SecureChain Dashboard - Live Demo</div>
+                
+                <div class="demo-stats">
+                    <div>✅ Transacciones Verificadas: <strong>47,382</strong></div>
+                    <div>🚫 Fraudes Bloqueados: <strong>1,247</strong></div>
+                    <div>📊 Score Promedio Red: <strong>8.7/10</strong></div>
+                    <div>⚡ Tiempo de Respuesta: <strong>1.2s</strong></div>
+                </div>
+                
+                <div class="demo-alert">
+                    <strong>🔴 ALERTA: Patrón Sospechoso Detectado</strong><br>
+                    Usuario: 0x742...af8d<br>
+                    Nivel de Riesgo: <strong>ALTO (9.1/10)</strong><br>
+                    Acción Recomendada: ❌ <strong>BLOQUEAR TRANSACCIÓN</strong>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <h3 style="margin-bottom: 20px;">Integración Súper Simple</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🔧</div>
+                        <strong>API Simple</strong><br>3 líneas de código
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
+                        <strong>Tiempo Real</strong><br>&lt;2 segundos
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🔗</div>
+                        <strong>Compatible</strong><br>Sistemas existentes
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNOLOGY SECTION -->
+    <section id="technology" class="section technology">
+        <div class="container">
+            <h2 class="section-title">Construido en Lisk L2</h2>
+            <div class="lisk-logo">LISK L2</div>
+            <p class="section-subtitle">
+                Elegimos Lisk porque ofrece la combinación perfecta de costos bajos, alta velocidad y herramientas developer-friendly necesarias para adopción masiva en América Latina.
+            </p>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3 style="color: #7c3aed; margin-bottom: 20px;">💸 Costos Bajos</h3>
+                    <p>Verificación accesible para usuarios de LatAm. Transacciones de menos de $0.02 hacen posible la adopción masiva.</p>
+                </div>
+                <div class="tech-card">
+                    <h3 style="color: #7c3aed; margin-bottom: 20px;">⚡ Velocidad Extrema</h3>
+                    <p>Decisiones de fraude en menos de 2 segundos. La velocidad es crítica para no afectar la experiencia del usuario.</p>
+                </div>
+                <div class="tech-card">
+                    <h3 style="color: #7c3aed; margin-bottom: 20px;">🔗 Interoperabilidad</h3>
+                    <p>Se conecta con redes de pago existentes. No reemplazamos, mejoramos la infraestructura actual.</p>
+                </div>
+                <div class="tech-card">
+                    <h3 style="color: #7c3aed; margin-bottom: 20px;">👨‍💻 Developer UX</h3>
+                    <p>SDK en JavaScript para integración rápida. Las fintech pueden implementar en días, no meses.</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 60px; text-align: center;">
+                <h3 style="margin-bottom: 30px;">Nuestra Arquitectura Técnica</h3>
+                <div style="background: #f3f4f6; padding: 40px; border-radius: 16px; max-width: 600px; margin: 0 auto;">
+                    <div style="margin-bottom: 15px;"><strong>Smart Contracts</strong> → Puntuación de reputación</div>
+                    <div style="margin-bottom: 15px;"><strong>Oráculos</strong> → Feeds de datos externos</div>
+                    <div style="margin-bottom: 15px;"><strong>APIs RESTful</strong> → Integración con fintech</div>
+                    <div><strong>Zero-Knowledge Proofs</strong> → Capa de privacidad</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM SECTION -->
+    <section id="team" class="section team">
+        <div class="container">
+            <h2 class="section-title">Nuestro Equipo</h2>
+            <p class="section-subtitle">
+                Fundadora comprometida full-time, formando equipo técnico de clase mundial durante el programa Lisk Founder's Track.
+            </p>
+            
+            <div class="founder-card">
+                <div class="founder-avatar">👩‍💼</div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 10px;">María Celeste Alfaro</h3>
+                <div style="color: #10b981; font-size: 1.2rem; margin-bottom: 20px;">CEO & Fundadora</div>
+                <div style="margin-bottom: 20px;">📍 Salta, Argentina</div>
+                <p style="font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+                    <strong>Visión:</strong> Democratizar la seguridad financiera en América Latina mediante blockchain descentralizada. 
+                    Comprometida tiempo completo con SecureChain para crear el futuro de pagos seguros en la región.
+                </p>
+            </div>
+            
+            <h3 style="text-align: center; margin: 60px 0 40px; font-size: 1.8rem;">🔍 Reclutando Activamente</h3>
+            
+            <div class="recruiting-grid">
+                <div class="role-card">
+                    <h4 style="color: #10b981; margin-bottom: 20px; font-size: 1.3rem;">CTO</h4>
+                    <ul style="text-align: left;">
+                        <li>Experiencia en Lisk/Ethereum L2</li>
+                        <li>JavaScript + smart contracts</li>
+                        <li>Background en detección de fraude</li>
+                        <li>Liderazgo técnico comprobado</li>
+                    </ul>
+                </div>
+                <div class="role-card">
+                    <h4 style="color: #10b981; margin-bottom: 20px; font-size: 1.3rem;">Head of Fraud Detection</h4>
+                    <ul style="text-align: left;">
+                        <li>Especialista en LatAm</li>
+                        <li>Background banking/fintech</li>
+                        <li>Threat intelligence experience</li>
+                        <li>Conocimiento regulatorio regional</li>
+                    </ul>
+                </div>
+                <div class="role-card">
+                    <h4 style="color: #10b981; margin-bottom: 20px; font-size: 1.3rem;">BD Lead</h4>
+                    <ul style="text-align: left;">
+                        <li>Red fintech en LatAm</li>
+                        <li>Experiencia compliance</li>
+                        <li>Desarrollo de partnerships</li>
+                        <li>Dominio inglés/español</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">🎯 <strong>Asesores:</strong> Ecosistema Lisk + Red Crecimiento</p>
+                <p style="opacity: 0.8;">¿Encajas en algún rol? ¡Contáctanos!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Construyamos el Futuro Juntos</h2>
+            <p class="section-subtitle">
+                ¿Eres una fintech buscando mejor prevención de fraude? ¿Un desarrollador interesado en seguridad blockchain? ¿Un inversor enfocado en LatAm? Hablemos.
+            </p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h4>Email</h4>
+                    <p><strong>mariahgeipel@gmail.com</strong></p>
+                    <p>Respuesta en 24 horas</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">🐦</div>
+                    <h4>Twitter</h4>
+                    <p><strong>@SecureChainLatAm</strong></p>
+                    <p>Síguenos para updates</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h4>Ubicación</h4>
+                    <p><strong>Salta, Argentina</strong></p>
+                    <p>Horario UTC-3</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">🚀</div>
+                    <h4>Estado Actual</h4>
+                    <p><strong>Aplicando a Lisk Founder's Track</strong></p>
+                    <p>Octubre - Noviembre 2025</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #374151;">
+                <div style="font-size: 1.4rem; font-style: italic; margin-bottom: 20px;">
+                    💡 "Cada transacción que protegemos es una familia que no pierde sus ahorros por fraude."
+                </div>
+                <p style="opacity: 0.7; margin-bottom: 10px;">
+                    <strong>SecureChain LatAm</strong> • Fundado por María Celeste Alfaro
+                </p>
+                <p style="opacity: 0.6; font-size: 0.9rem;">
+                    Aplicando a Lisk Founder's Track • Octubre 2025 • Construido con 💜 en Salta, Argentina
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navigation functionality
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinksContainer = document.getElementById('navLinks');
+
+        // Show section based on hash or default to home
+        function showSection(targetId) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(targetId);
+            const targetLink = document.querySelector(`[href="#${targetId}"]`);
+            
+            if (targetSection && targetLink) {
+                targetSection.classList.add('active');
+                targetLink.classList.add('active');
+            }
+        }
+
+        // Handle navigation clicks
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                showSection(targetId);
+                
+                // Update URL without scrolling
+                history.pushState(null, '', `#${targetId}`);
+                
+                // Close mobile menu if open
+                navLinksContainer.classList.remove('active');
+            });
+        });
+
+        // Handle mobile menu toggle
+        mobileMenu.addEventListener('click', () => {
+            navLinksContainer.classList.toggle('active');
+        });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.substring(1) || 'home';
+            showSection(hash);
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.substring(1) || 'home';
+            showSection(hash);
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav') && navLinksContainer.classList.contains('active')) {
+                navLinksContainer.classList.remove('active');
+            }
+        });
+
+        // Add smooth animations when sections change
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe all sections for animations
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect on home section
+        const heroTitle = document.querySelector('.hero h1');
+        if (heroTitle) {
+            // Only run typing effect on first load
+            let hasTyped = false;
+            
+            const homeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasTyped) {
+                        hasTyped = true;
+                        typeWriter(heroTitle, '🛡️ SecureChain LatAm', 150);
+                    }
+                });
+            });
+            
+            homeObserver.observe(document.getElementById('home'));
+        }
+
+        // Add counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function updateCounter() {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                } else {
+                    element.textContent = Math.floor(start);
+                    requestAnimationFrame(updateCounter);
+                }
+            }
+            updateCounter();
+        }
+
+        // Animate stats when problem section is visible
+        const problemSection = document.getElementById('problem');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const text = stat.textContent;
+                        const number = parseInt(text.replace(/\D/g, ''));
+                        if (number && !stat.hasAttribute('data-animated')) {
+                            stat.setAttribute('data-animated', 'true');
+                            // For percentages and numbers without $
+                            if (text.includes('%')) {
+                                animateCounter(stat, number);
+                                setTimeout(() => {
+                                    stat.textContent = number + '%';
+                                }, 2000);
+                            } else if (text.includes(')) {
+                                stat.textContent = '$0M';
+                                animateCounter({
+                                    set textContent(val) {
+                                        stat.textContent = ' + val + 'M';
+                                    }
+                                }, number);
+                            } else {
+                                animateCounter({
+                                    set textContent(val) {
+                                        stat.textContent = val + '%';
+                                    }
+                                }, number);
+                            }
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (problemSection) {
+            statsObserver.observe(problemSection);
+        }
+
+        // Add glowing effect to CTA buttons
+        const ctaButtons = document.querySelectorAll('.cta-button');
+        ctaButtons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.boxShadow = '0 0 30px rgba(16, 185, 129, 0.6)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.boxShadow = '0 10px 25px rgba(16, 185, 129, 0.4)';
+            });
+        });
+    </script>
+</body>
+</html>
